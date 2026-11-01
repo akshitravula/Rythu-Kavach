@@ -11,12 +11,12 @@ import {
   RotateCw, 
   ArrowRight, 
   Languages, 
-  UserCheck, 
-  Building2, 
   AlertCircle,
   Eye,
   EyeOff,
-  CheckCircle2
+  CheckCircle2,
+  Building2,
+  FileText
 } from 'lucide-react';
 
 interface OfficerLoginProps {
@@ -87,17 +87,17 @@ export const OfficerLogin: React.FC<OfficerLoginProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9] flex flex-col font-sans">
-      {/* 1. Official State Banner Strip */}
-      <div className="bg-[#071326] px-4 py-1.5 text-[11px] border-b border-[#152a4a] text-slate-300">
+    <div className="h-screen max-h-screen bg-[#f1f5f9] flex flex-col font-sans overflow-hidden select-none">
+      {/* 1. Official State Banner Strip (Compact shrink-0) */}
+      <header className="bg-[#071326] px-4 py-1 text-[11px] border-b border-[#152a4a] text-slate-300 shrink-0">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-2 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-            <span className="tracking-wide">{t.govtLabel}</span>
+          <div className="flex items-center space-x-2 font-medium truncate">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></span>
+            <span className="tracking-wide truncate">{t.govtLabel}</span>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3 shrink-0">
             <span className="hidden md:inline text-slate-400 font-mono text-[10px]">
-              SDRF / NDRF DISASTER ASSISTANCE PORTAL
+              SDRF / NDRF PORTAL
             </span>
             {/* Language Switcher */}
             <div className="flex items-center bg-[#13284a] rounded p-0.5 border border-[#203f70] text-xs">
@@ -123,242 +123,281 @@ export const OfficerLogin: React.FC<OfficerLoginProps> = ({
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* 2. Portal Brand Bar */}
-      <div className="bg-[#0b1c36] text-white border-b border-[#1c355e] py-3.5 px-4 shadow-sm">
+      {/* 2. Portal Brand Bar (Compact shrink-0) */}
+      <div className="bg-[#0b1c36] text-white border-b border-[#1c355e] py-2 px-4 shadow-xs shrink-0">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
             <div className="flex items-center space-x-2">
-              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+              <h1 className="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-2">
                 <span>{t.portalTitle}</span>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#162f59] text-blue-200 border border-[#2b4e85] uppercase">
                   {lang === 'te' ? 'అధికారిక వేదిక' : 'Official Portal'}
                 </span>
               </h1>
             </div>
-            <p className="text-xs text-slate-300 font-normal mt-0.5">
+            <p className="text-[11px] text-slate-300 font-normal">
               {t.portalSubtitle}
             </p>
           </div>
-          <div className="hidden sm:flex items-center space-x-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg text-xs">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span className="text-slate-200 font-medium">e-Office / NIC SSO Enabled</span>
+          <div className="hidden sm:flex items-center space-x-1.5 bg-white/5 border border-white/10 px-2.5 py-1 rounded text-xs">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="text-slate-200 text-[11px] font-medium">e-Office / NIC SSO</span>
           </div>
         </div>
       </div>
 
-      {/* 3. Main Login Card Container */}
-      <main className="flex-1 flex items-center justify-center p-4 sm:p-6 my-auto">
-        <div className="max-w-md w-full bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
-          {/* Card Title Banner */}
-          <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Lock className="w-4 h-4 text-slate-700" />
-              <h2 className="text-sm font-bold text-slate-900 uppercase tracking-wide">
-                {t.loginTitle}
-              </h2>
-            </div>
-            <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-200">
-              G.O. Ms No. 17
-            </span>
-          </div>
-
-          {/* Login Form */}
-          <form onSubmit={handleFormSubmit} className="p-5 space-y-4 text-xs">
-            {/* Role Selector */}
+      {/* 3. Main 2-Column Centered Authentication Card (Fits 100% in 1 Viewport) */}
+      <main className="flex-1 flex items-center justify-center p-3 sm:p-4 overflow-hidden">
+        <div className="max-w-3xl w-full bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+          
+          {/* Left Column: Official Sign-In Form (60% width on desktop) */}
+          <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
             <div>
-              <label className="block font-bold text-slate-700 mb-1 text-xs">
-                {t.loginRole}
-              </label>
-              <div className="grid grid-cols-3 gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => handleRoleChange('MRO')}
-                  className={`py-2 px-1 text-center rounded border text-xs font-semibold transition-all ${
-                    selectedRole === 'MRO'
-                      ? 'bg-blue-900 text-white border-blue-900 shadow-2xs'
-                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
-                  }`}
-                >
-                  {lang === 'te' ? 'తహసీల్దార్ (MRO)' : 'Tahsildar (MRO)'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleRoleChange('MAO')}
-                  className={`py-2 px-1 text-center rounded border text-xs font-semibold transition-all ${
-                    selectedRole === 'MAO'
-                      ? 'bg-blue-900 text-white border-blue-900 shadow-2xs'
-                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
-                  }`}
-                >
-                  {lang === 'te' ? 'వ్యవసాయ అధికారి' : 'MAO (Agri)'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleRoleChange('COLLECTOR')}
-                  className={`py-2 px-1 text-center rounded border text-xs font-semibold transition-all ${
-                    selectedRole === 'COLLECTOR'
-                      ? 'bg-blue-900 text-white border-blue-900 shadow-2xs'
-                      : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
-                  }`}
-                >
-                  {lang === 'te' ? 'జిల్లా కలెక్టర్' : 'Collector'}
-                </button>
-              </div>
-            </div>
-
-            {/* Officer ID / Email */}
-            <div>
-              <label className="block font-bold text-slate-700 mb-1 text-xs">
-                {t.loginOfficerId}
-              </label>
-              <div className="relative">
-                <Mail className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
-                <input
-                  type="email"
-                  value={officerEmail}
-                  onChange={(e) => setOfficerEmail(e.target.value)}
-                  required
-                  className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded text-slate-800 text-xs focus:ring-1 focus:ring-blue-700 focus:bg-white focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div>
-              <label className="block font-bold text-slate-700 mb-1 text-xs">
-                {t.loginPassword}
-              </label>
-              <div className="relative">
-                <KeyRound className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full pl-9 pr-9 py-2 bg-slate-50 border border-slate-300 rounded text-slate-800 text-xs focus:ring-1 focus:ring-blue-700 focus:bg-white focus:outline-none font-mono"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600"
-                >
-                  {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                </button>
-              </div>
-            </div>
-
-            {/* Math Security Captcha */}
-            <div>
-              <label className="block font-bold text-slate-700 mb-1 text-xs">
-                {t.loginCaptcha}
-              </label>
-              <div className="flex items-center space-x-2">
-                <div className="bg-slate-200 border border-slate-300 px-3 py-1.5 rounded font-mono font-bold text-slate-800 tracking-wider text-xs select-none">
-                  {captchaNum1} + {captchaNum2} = ?
+              <div className="flex items-center justify-between pb-2.5 border-b border-slate-200 mb-3">
+                <div className="flex items-center space-x-2">
+                  <Lock className="w-4 h-4 text-slate-700" />
+                  <h2 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">
+                    {t.loginTitle}
+                  </h2>
                 </div>
-                <button
-                  type="button"
-                  onClick={refreshCaptcha}
-                  className="p-2 text-slate-500 hover:text-slate-800 transition-colors"
-                  title="Refresh Captcha"
-                >
-                  <RotateCw className="w-3.5 h-3.5" />
-                </button>
-                <input
-                  type="number"
-                  value={captchaInput}
-                  onChange={(e) => setCaptchaInput(e.target.value)}
-                  required
-                  placeholder="Answer"
-                  className="w-24 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-800 text-xs font-mono text-center focus:ring-1 focus:ring-blue-700 focus:bg-white focus:outline-none"
-                />
-              </div>
-              {captchaError && (
-                <p className="text-rose-700 text-[11px] font-semibold mt-1 flex items-center gap-1">
-                  <AlertCircle className="w-3 h-3" />
-                  {captchaError}
-                </p>
-              )}
-            </div>
-
-            {/* Statutory Declaration */}
-            <div className="pt-1">
-              <label className="flex items-start space-x-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={declared}
-                  onChange={(e) => setDeclared(e.target.checked)}
-                  required
-                  className="mt-0.5 rounded text-blue-900"
-                />
-                <span className="text-[11px] text-slate-600 leading-tight">
-                  {t.loginDeclaration}
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-blue-50 text-blue-900 border border-blue-200">
+                  G.O. Ms No. 17
                 </span>
-              </label>
-            </div>
+              </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={!declared}
-              className="w-full py-2.5 px-4 rounded bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-            >
-              <span>{t.loginSubmit}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </form>
+              <form onSubmit={handleFormSubmit} className="space-y-2.5 text-xs">
+                {/* Role Switcher Pills */}
+                <div>
+                  <label className="block font-bold text-slate-700 mb-1 text-[11px]">
+                    {t.loginRole}
+                  </label>
+                  <div className="grid grid-cols-3 gap-1">
+                    <button
+                      type="button"
+                      onClick={() => handleRoleChange('MRO')}
+                      className={`py-1.5 px-1 text-center rounded border text-[11px] font-semibold transition-all ${
+                        selectedRole === 'MRO'
+                          ? 'bg-blue-900 text-white border-blue-900 shadow-2xs'
+                          : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                      }`}
+                    >
+                      {lang === 'te' ? 'తహసీల్దార్' : 'Tahsildar'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRoleChange('MAO')}
+                      className={`py-1.5 px-1 text-center rounded border text-[11px] font-semibold transition-all ${
+                        selectedRole === 'MAO'
+                          ? 'bg-blue-900 text-white border-blue-900 shadow-2xs'
+                          : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                      }`}
+                    >
+                      {lang === 'te' ? 'వ్యవసాయ అధికారి' : 'MAO (Agri)'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRoleChange('COLLECTOR')}
+                      className={`py-1.5 px-1 text-center rounded border text-[11px] font-semibold transition-all ${
+                        selectedRole === 'COLLECTOR'
+                          ? 'bg-blue-900 text-white border-blue-900 shadow-2xs'
+                          : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                      }`}
+                    >
+                      {lang === 'te' ? 'కలెక్టర్' : 'Collector'}
+                    </button>
+                  </div>
+                </div>
 
-          {/* Quick Reviewer Demo Fast-Track */}
-          <div className="bg-slate-50 p-4 border-t border-slate-200">
-            <span className="text-[11px] font-bold text-slate-700 block mb-2 uppercase tracking-wide flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-blue-700" />
-              <span>{t.loginQuickDemo}</span>
-            </span>
-            <div className="space-y-1.5">
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('MRO')}
-                className="w-full text-left p-2 rounded bg-white hover:bg-blue-50 border border-slate-200 text-xs transition-colors flex items-center justify-between"
-              >
+                {/* Officer ID / Email */}
                 <div>
-                  <span className="font-bold text-slate-900 block">Tahsildar / MRO (Maheshwaram)</span>
-                  <span className="text-[10px] text-slate-500 font-mono">tahsildar.maheshwaram@telangana.gov.in</span>
+                  <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">
+                    {t.loginOfficerId}
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2" />
+                    <input
+                      type="email"
+                      value={officerEmail}
+                      onChange={(e) => setOfficerEmail(e.target.value)}
+                      required
+                      className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-800 text-xs focus:ring-1 focus:ring-blue-700 focus:bg-white focus:outline-none"
+                    />
+                  </div>
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('MAO')}
-                className="w-full text-left p-2 rounded bg-white hover:bg-blue-50 border border-slate-200 text-xs transition-colors flex items-center justify-between"
-              >
+
+                {/* Password Field */}
                 <div>
-                  <span className="font-bold text-slate-900 block">Mandal Agriculture Officer (MAO)</span>
-                  <span className="text-[10px] text-slate-500 font-mono">mao.maheshwaram@telangana.gov.in</span>
+                  <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">
+                    {t.loginPassword}
+                  </label>
+                  <div className="relative">
+                    <KeyRound className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2" />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      className="w-full pl-8 pr-8 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-800 text-xs focus:ring-1 focus:ring-blue-700 focus:bg-white focus:outline-none font-mono"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-2.5 top-2 text-slate-400 hover:text-slate-600"
+                    >
+                      {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                    </button>
+                  </div>
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('COLLECTOR')}
-                className="w-full text-left p-2 rounded bg-white hover:bg-blue-50 border border-slate-200 text-xs transition-colors flex items-center justify-between"
-              >
+
+                {/* Security Captcha (Horizontal row) */}
                 <div>
-                  <span className="font-bold text-slate-900 block">District Collector & Magistrate</span>
-                  <span className="text-[10px] text-slate-500 font-mono">collector.rangareddy@telangana.gov.in</span>
+                  <label className="block font-bold text-slate-700 mb-0.5 text-[11px]">
+                    {t.loginCaptcha}
+                  </label>
+                  <div className="flex items-center space-x-2">
+                    <div className="bg-slate-200 border border-slate-300 px-2.5 py-1 rounded font-mono font-bold text-slate-800 text-xs tracking-wider">
+                      {captchaNum1} + {captchaNum2} = ?
+                    </div>
+                    <button
+                      type="button"
+                      onClick={refreshCaptcha}
+                      className="p-1 text-slate-500 hover:text-slate-800"
+                      title="Refresh Captcha"
+                    >
+                      <RotateCw className="w-3 h-3" />
+                    </button>
+                    <input
+                      type="number"
+                      value={captchaInput}
+                      onChange={(e) => setCaptchaInput(e.target.value)}
+                      required
+                      placeholder="Ans"
+                      className="w-16 px-2 py-1 bg-slate-50 border border-slate-300 rounded text-slate-800 text-xs font-mono text-center focus:ring-1 focus:ring-blue-700 focus:bg-white focus:outline-none"
+                    />
+                  </div>
+                  {captchaError && (
+                    <p className="text-rose-700 text-[10px] font-semibold mt-0.5 flex items-center gap-1">
+                      <AlertCircle className="w-3 h-3" />
+                      {captchaError}
+                    </p>
+                  )}
                 </div>
-                <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
-              </button>
+
+                {/* Declaration Checkbox */}
+                <div className="pt-0.5">
+                  <label className="flex items-start space-x-1.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={declared}
+                      onChange={(e) => setDeclared(e.target.checked)}
+                      required
+                      className="mt-0.5 rounded text-blue-900"
+                    />
+                    <span className="text-[10px] text-slate-600 leading-tight">
+                      {t.loginDeclaration}
+                    </span>
+                  </label>
+                </div>
+
+                {/* Submit Action */}
+                <button
+                  type="submit"
+                  disabled={!declared}
+                  className="w-full py-2 px-3 rounded bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs shadow-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                >
+                  <span>{t.loginSubmit}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </form>
             </div>
           </div>
 
-          {/* Statutory Security Disclaimer */}
-          <div className="p-3 bg-slate-100 text-slate-500 text-[10px] leading-tight text-center border-t border-slate-200">
-            {t.loginDisclaimer}
+          {/* Right Column: Reviewer Quick Demo Fast-Track (40% width, side-by-side) */}
+          <div className="w-full md:w-80 bg-slate-50/90 border-t md:border-t-0 md:border-l border-slate-200 p-4 sm:p-5 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center space-x-1.5 pb-2 border-b border-slate-200 mb-3">
+                <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
+                <span className="text-xs font-bold text-slate-900 uppercase tracking-wide">
+                  {t.loginQuickDemo}
+                </span>
+              </div>
+
+              <div className="space-y-2">
+                <button
+                  type="button"
+                  onClick={() => handleQuickLogin('MRO')}
+                  className="w-full text-left p-2.5 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-all shadow-2xs group cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-slate-900 text-xs group-hover:text-blue-900">
+                      Tahsildar / MRO
+                    </span>
+                    <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-blue-700 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                  <span className="text-[10px] text-slate-500 font-mono block mt-0.5 truncate">
+                    tahsildar.maheshwaram@telangana.gov.in
+                  </span>
+                  <span className="text-[10px] text-emerald-700 font-semibold mt-1 block">
+                    ✓ Final Sanction Authority
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleQuickLogin('MAO')}
+                  className="w-full text-left p-2.5 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-all shadow-2xs group cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-slate-900 text-xs group-hover:text-blue-900">
+                      Mandal Agriculture Officer
+                    </span>
+                    <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-blue-700 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                  <span className="text-[10px] text-slate-500 font-mono block mt-0.5 truncate">
+                    mao.maheshwaram@telangana.gov.in
+                  </span>
+                  <span className="text-[10px] text-blue-700 font-semibold mt-1 block">
+                    ✓ Field & e-Panta Verifier
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleQuickLogin('COLLECTOR')}
+                  className="w-full text-left p-2.5 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-all shadow-2xs group cursor-pointer"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-slate-900 text-xs group-hover:text-blue-900">
+                      District Collector
+                    </span>
+                    <ArrowRight className="w-3 h-3 text-slate-400 group-hover:text-blue-700 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                  <span className="text-[10px] text-slate-500 font-mono block mt-0.5 truncate">
+                    collector.rangareddy@telangana.gov.in
+                  </span>
+                  <span className="text-[10px] text-slate-700 font-semibold mt-1 block">
+                    ✓ District Oversight
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Bottom Regulatory Seal */}
+            <div className="pt-3 border-t border-slate-200 mt-2">
+              <p className="text-[10px] text-slate-500 leading-tight">
+                {t.loginDisclaimer}
+              </p>
+            </div>
           </div>
         </div>
       </main>
+
+      {/* 4. Official Footer Strip (Compact shrink-0) */}
+      <footer className="bg-slate-200/80 px-4 py-1 text-[10px] text-slate-600 text-center border-t border-slate-300 shrink-0">
+        Telangana State Disaster Management Authority (TSDMA) • G.O. Ms No. 17 SDRF Regulations • Section 43/66 IT Act 2000
+      </footer>
     </div>
   );
 };
