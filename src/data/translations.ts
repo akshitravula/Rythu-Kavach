@@ -153,6 +153,19 @@ export const translations = {
     resetDemo: 'డేటాను రీసెట్ చేయండి',
     sanctionOrderHeading: 'తెలంగాణ ప్రభుత్వం • విపత్తు నిర్వహణ శాఖ',
     sanctionProceedingTitle: 'వ్యవసాయ పంట నష్టపరిహార మంజూరు ప్రొసీడింగ్స్',
+
+    // Login Screen
+    loginTitle: 'అధికారిక లాగిన్ ప్రవేశం',
+    loginSubtitle: 'వ్యవసాయ విపత్తు పంట నష్టపరిహార నిర్వహణ పోర్టల్ (SDRF G.O. Ms 17)',
+    loginOfficerId: 'అధికారిక ఈమెయిల్ / ఎంప్లాయ్ ఐడీ',
+    loginPassword: 'పాస్‌వర్డ్',
+    loginRole: 'అధికారి హోదా ఎంచుకోండి',
+    loginCaptcha: 'భద్రతా క్యాప్చా',
+    loginSubmit: 'పోర్టల్‌లోకి ప్రవేశించండి',
+    loginQuickDemo: 'సమీక్షకుల కొరకు త్వరిత లాగిన్ (Quick Demo Login)',
+    loginDeclaration: 'నేను తెలంగాణ ప్రభుత్వ అధికారిక రెవెన్యూ/వ్యవసాయ అధికారిగా ఈ పోర్టల్‌లోకి ప్రవేశిస్తున్నానని ధ్రువీకరిస్తున్నాను.',
+    loginDisclaimer: 'ఈ పోర్టల్ కేవలం తెలంగాణ ప్రభుత్వ గుర్తింపు పొందిన అధికారుల కొరకు మాత్రమే. అనధికారిక ప్రవేశం భారత ఐటీ చట్టం 2000 సెక్షన్ 43/66 ప్రకారం నేరం.',
+    logoutBtn: 'నిష్క్రమించండి',
   },
 
   en: {
@@ -307,6 +320,19 @@ export const translations = {
     resetDemo: 'Reset Demo Data',
     sanctionOrderHeading: 'Government of Telangana • Disaster Management Department',
     sanctionProceedingTitle: 'Proceedings for Agricultural Crop Loss Relief Sanction',
+
+    // Login Screen
+    loginTitle: 'Officer Portal Sign-In',
+    loginSubtitle: 'Agricultural Disaster Crop Loss Relief & Compensation Scrutiny System (SDRF G.O. Ms 17)',
+    loginOfficerId: 'Official Email / Employee Code',
+    loginPassword: 'Password',
+    loginRole: 'Select Administrative Role',
+    loginCaptcha: 'Security Captcha',
+    loginSubmit: 'Sign In to Officer Workbench',
+    loginQuickDemo: 'Quick Demo Access for Reviewers',
+    loginDeclaration: 'I declare that I am an authorized officer accessing this portal under statutory jurisdiction.',
+    loginDisclaimer: 'This system is strictly for authorized Revenue and Agriculture officers of the Government of Telangana. Unauthorized access is punishable under Section 43/66 of the IT Act, 2000.',
+    logoutBtn: 'Sign Out',
   },
 
   hi: {
@@ -461,5 +487,18 @@ export const translations = {
     resetDemo: 'डेमो डेटा रीसेट करें',
     sanctionOrderHeading: 'तेलंगाना सरकार • आपदा प्रबंधन विभाग',
     sanctionProceedingTitle: 'कृषि फसल क्षति राहत स्वीकृति आदेश',
+
+    // Login Screen
+    loginTitle: 'अधिकारी पोर्टल लॉगिन',
+    loginSubtitle: 'कृषि आपदा फसल क्षति राहत एवं मुआवजा समीक्षा प्रणाली (SDRF G.O. Ms 17)',
+    loginOfficerId: 'आधिकारिक ईमेल / कर्मचारी कोड',
+    loginPassword: 'पासवर्ड',
+    loginRole: 'प्रशासनिक पद चुनें',
+    loginCaptcha: 'सुरक्षा कैप्चा',
+    loginSubmit: 'पोर्टल में प्रवेश करें',
+    loginQuickDemo: 'समीक्षक त्वरित लॉगिन (Quick Demo)',
+    loginDeclaration: 'मैं प्रमाणित करता हूँ कि मैं इस पोर्टल पर वैधानिक अधिकार क्षेत्र के तहत अधिकृत अधिकारी हूँ।',
+    loginDisclaimer: 'यह प्रणाली केवल तेलंगाना सरकार के अधिकृत अधिकारियों के लिए है। अनधिकृत प्रवेश आईटी अधिनियम 2000 के तहत दंडनीय है।',
+    logoutBtn: 'लॉग आउट',
   }
 };

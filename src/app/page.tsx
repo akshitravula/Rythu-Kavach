@@ -10,8 +10,11 @@ import { ClaimDetail } from '@/components/ClaimDetail';
 import { OfficerDecisionModal } from '@/components/OfficerDecisionModal';
 import { SanctionOrderModal } from '@/components/SanctionOrderModal';
 import { NewClaimModal } from '@/components/NewClaimModal';
+import { OfficerLogin } from '@/components/OfficerLogin';
 
 export default function Home() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [officerEmail, setOfficerEmail] = useState<string>('tahsildar.maheshwaram@telangana.gov.in');
   const [claims, setClaims] = useState<FarmerClaim[]>(INITIAL_CLAIMS);
   const [selectedClaimId, setSelectedClaimId] = useState<string>(INITIAL_CLAIMS[0].id);
   const [lang, setLang] = useState<Language>('te'); // Default to Telugu (Local Language)
@@ -54,10 +57,40 @@ export default function Home() {
       if (savedLang === 'te' || savedLang === 'en' || savedLang === 'hi') {
         setLang(savedLang);
       }
+
+      const savedAuth = localStorage.getItem('rythu_kavach_auth');
+      if (savedAuth) {
+        const authData = JSON.parse(savedAuth);
+        if (authData?.isAuth) {
+          setIsAuthenticated(true);
+          if (authData.role) setOfficerRole(authData.role);
+          if (authData.email) setOfficerEmail(authData.email);
+        }
+      }
     } catch {
       // ignore
     }
   }, []);
+
+  const handleLogin = (role: 'MAO' | 'MRO' | 'COLLECTOR', email: string) => {
+    setOfficerRole(role);
+    setOfficerEmail(email);
+    setIsAuthenticated(true);
+    try {
+      localStorage.setItem('rythu_kavach_auth', JSON.stringify({ isAuth: true, role, email }));
+    } catch {
+      // ignore
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    try {
+      localStorage.removeItem('rythu_kavach_auth');
+    } catch {
+      // ignore
+    }
+  };
 
   // Save changes to localStorage
   const saveClaims = (updated: FarmerClaim[]) => {
@@ -171,6 +204,17 @@ export default function Home() {
 
   const selectedClaim = claims.find((c) => c.id === selectedClaimId) || claims[0];
 
+  // If not logged in, render the official Government Officer Login Portal
+  if (!isAuthenticated) {
+    return (
+      <OfficerLogin
+        lang={lang}
+        onLanguageChange={handleLanguageChange}
+        onLoginSuccess={handleLogin}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans">
       {/* 1. Official Header */}
@@ -181,6 +225,8 @@ export default function Home() {
         onRoleChange={setOfficerRole}
         onOpenNewClaimModal={() => setIsNewClaimModalOpen(true)}
         onResetData={handleResetData}
+        onLogout={handleLogout}
+        officerEmail={officerEmail}
       />
 
       {/* 2. Main Content Dashboard (Clean, Open, Breathing) */}

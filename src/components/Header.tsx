@@ -3,7 +3,7 @@
 import React from 'react';
 import { Language } from '@/types/claim';
 import { translations } from '@/data/translations';
-import { UserCheck, Languages, Plus, RotateCcw } from 'lucide-react';
+import { UserCheck, Languages, Plus, RotateCcw, LogOut } from 'lucide-react';
 
 interface HeaderProps {
   lang: Language;
@@ -12,6 +12,8 @@ interface HeaderProps {
   onRoleChange: (role: 'MAO' | 'MRO' | 'COLLECTOR') => void;
   onOpenNewClaimModal: () => void;
   onResetData: () => void;
+  onLogout?: () => void;
+  officerEmail?: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,7 +22,9 @@ export const Header: React.FC<HeaderProps> = ({
   officerRole,
   onRoleChange,
   onOpenNewClaimModal,
-  onResetData
+  onResetData,
+  onLogout,
+  officerEmail
 }) => {
   const t = translations[lang];
 
@@ -129,6 +133,18 @@ export const Header: React.FC<HeaderProps> = ({
               <Plus className="w-3.5 h-3.5" />
               <span>{t.demoNewClaim}</span>
             </button>
+
+            {/* Logout Button */}
+            {onLogout && (
+              <button
+                onClick={onLogout}
+                title={t.logoutBtn}
+                className="flex items-center space-x-1 bg-white/10 hover:bg-rose-900/60 text-slate-200 hover:text-white font-medium text-xs px-2.5 py-1.5 rounded-md border border-white/20 transition-all cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">{t.logoutBtn}</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
