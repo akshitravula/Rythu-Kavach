@@ -33,6 +33,8 @@ interface ClaimDetailProps {
   officerRole: string;
   onOpenDecisionModal: (type: 'APPROVE' | 'RETURN' | 'REJECT') => void;
   onOpenSanctionOrder: () => void;
+  activeTab?: 'SUMMARY' | 'CADASTRAL' | 'WEATHER' | 'DOCS' | 'AI_AUDIT';
+  onTabChange?: (tab: 'SUMMARY' | 'CADASTRAL' | 'WEATHER' | 'DOCS' | 'AI_AUDIT') => void;
 }
 
 export const ClaimDetail: React.FC<ClaimDetailProps> = ({
@@ -40,10 +42,18 @@ export const ClaimDetail: React.FC<ClaimDetailProps> = ({
   lang,
   officerRole,
   onOpenDecisionModal,
-  onOpenSanctionOrder
+  onOpenSanctionOrder,
+  activeTab: propActiveTab,
+  onTabChange
 }) => {
   const t = translations[lang];
-  const [activeTab, setActiveTab] = useState<'SUMMARY' | 'CADASTRAL' | 'WEATHER' | 'DOCS' | 'AI_AUDIT'>('AI_AUDIT');
+  const [internalTab, setInternalTab] = useState<'SUMMARY' | 'CADASTRAL' | 'WEATHER' | 'DOCS' | 'AI_AUDIT'>('AI_AUDIT');
+  const activeTab = propActiveTab ?? internalTab;
+
+  const setActiveTab = (tab: 'SUMMARY' | 'CADASTRAL' | 'WEATHER' | 'DOCS' | 'AI_AUDIT') => {
+    setInternalTab(tab);
+    onTabChange?.(tab);
+  };
 
   const isApproved = claim.status === 'APPROVED_SANCTIONED';
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Language } from '@/types/claim';
 import { translations } from '@/data/translations';
-import { UserCheck, Languages, Plus, RotateCcw, LogOut } from 'lucide-react';
+import { UserCheck, Languages, Plus, RotateCcw, LogOut, Sparkles } from 'lucide-react';
 
 interface HeaderProps {
   lang: Language;
@@ -14,6 +14,8 @@ interface HeaderProps {
   onResetData: () => void;
   onLogout?: () => void;
   officerEmail?: string;
+  onToggleTour?: () => void;
+  isTourOpen?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -24,7 +26,9 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenNewClaimModal,
   onResetData,
   onLogout,
-  officerEmail
+  officerEmail,
+  onToggleTour,
+  isTourOpen
 }) => {
   const t = translations[lang];
 
@@ -124,6 +128,20 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
               </div>
             </div>
+
+            {/* Interactive Game-Style Walkthrough Guide Button */}
+            {onToggleTour && (
+              <button
+                onClick={onToggleTour}
+                className="flex items-center space-x-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs px-2.5 py-1.5 rounded-md border border-emerald-400/40 shadow-xs transition-all hover:scale-105 cursor-pointer"
+                title={lang === 'te' ? 'ఇంటరాక్టివ్ స్టెప్-బై-స్టెప్ గైడ్' : 'Interactive Step-by-Step Guide'}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-spin-slow" />
+                <span>
+                  {lang === 'te' ? '🎮 ఇంటరాక్టివ్ గైడ్' : lang === 'hi' ? '🎮 इंटरैक्टिव गाइड' : '🎮 Interactive Guide'}
+                </span>
+              </button>
+            )}
 
             {/* Ingest / Test Claim Action */}
             <button

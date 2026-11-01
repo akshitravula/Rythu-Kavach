@@ -11,6 +11,7 @@ import { OfficerDecisionModal } from '@/components/OfficerDecisionModal';
 import { SanctionOrderModal } from '@/components/SanctionOrderModal';
 import { NewClaimModal } from '@/components/NewClaimModal';
 import { OfficerLogin } from '@/components/OfficerLogin';
+import { InteractiveTour } from '@/components/InteractiveTour';
 
 export default function Home() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -19,6 +20,8 @@ export default function Home() {
   const [selectedClaimId, setSelectedClaimId] = useState<string>(INITIAL_CLAIMS[0].id);
   const [lang, setLang] = useState<Language>('te'); // Default to Telugu (Local Language)
   const [officerRole, setOfficerRole] = useState<'MAO' | 'MRO' | 'COLLECTOR'>('MRO');
+  const [detailTab, setDetailTab] = useState<'SUMMARY' | 'CADASTRAL' | 'WEATHER' | 'DOCS' | 'AI_AUDIT'>('AI_AUDIT');
+  const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
 
   // Search & Filters State
   const [searchTerm, setSearchTerm] = useState('');
@@ -76,6 +79,7 @@ export default function Home() {
     setOfficerRole(role);
     setOfficerEmail(email);
     setIsAuthenticated(true);
+    setIsTourOpen(true); // Auto-open game walkthrough on login
     try {
       localStorage.setItem('rythu_kavach_auth', JSON.stringify({ isAuth: true, role, email }));
     } catch {
@@ -227,6 +231,8 @@ export default function Home() {
         onResetData={handleResetData}
         onLogout={handleLogout}
         officerEmail={officerEmail}
+        onToggleTour={() => setIsTourOpen((prev) => !prev)}
+        isTourOpen={isTourOpen}
       />
 
       {/* 2. Main Content Dashboard (Clean, Open, Breathing) */}
@@ -266,6 +272,8 @@ export default function Home() {
                 claim={selectedClaim}
                 lang={lang}
                 officerRole={officerRole}
+                activeTab={detailTab}
+                onTabChange={setDetailTab}
                 onOpenDecisionModal={handleOpenDecisionModal}
                 onOpenSanctionOrder={() => setIsSanctionOrderModalOpen(true)}
               />
@@ -277,6 +285,19 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* Interactive Game-Style Walkthrough Tour */}
+      <InteractiveTour
+        isOpen={isTourOpen}
+        onClose={() => setIsTourOpen(false)}
+        lang={lang}
+        onSelectClaim={(id) => setSelectedClaimId(id)}
+        onSwitchTab={(tab) => setDetailTab(tab)}
+        onOpenDecisionModal={(type) => {
+          setDecisionActionType(type);
+          setIsDecisionModalOpen(true);
+        }}
+      />
 
       {/* 3. Decision Action Modal */}
       {isDecisionModalOpen && selectedClaim && (
