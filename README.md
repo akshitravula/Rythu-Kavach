@@ -2,11 +2,40 @@
 ### Agricultural Disaster Crop Loss Relief & Compensation Scrutiny Portal
 **Government of Telangana • Agriculture & Revenue (Disaster Management) Department**
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.4-black?logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.3-blue?logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-teal?logo=tailwind-css)](https://tailwindcss.com/)
-[![Local Language](https://img.shields.io/badge/Language-Telugu%20%7C%20English%20%7C%20Hindi-emerald)](https://github.com/akshitravula/Rythu-Kavach)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-rythukavach.netlify.app-emerald?style=for-the-badge&logo=netlify)](https://rythukavach.netlify.app)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-akshitravula%2FRythu--Kavach-black?style=for-the-badge&logo=github)](https://github.com/akshitravula/Rythu-Kavach)
+[![Evaluator Guide](https://img.shields.io/badge/Evaluator_Guide-GUIDE.md-blue?style=for-the-badge)](./GUIDE.md)
+
+---
+
+> ### 🏛️ Kenpath Engineering Challenge — Quick Reviewer Access
+> - **🌐 Live URL**: [https://rythukavach.netlify.app](https://rythukavach.netlify.app)
+> - **🔑 Quick Demo Login**: Single-click pre-filled buttons on the login screen, or use:
+>   - **Officer Email**: `mro.maheshwaram@telangana.gov.in` (Tahsildar / MRO)
+>   - **Password**: `Officer@2026`
+> - **📖 Comprehensive Evaluator Guide**: See [**GUIDE.md**](./GUIDE.md) for full mapping of all 5 challenge criteria and a 2-minute walkthrough.
+
+---
+
+## 🎯 Kenpath Evaluation Criteria Overview
+
+| Evaluation Criterion | Implementation in Rythu Kavach | Where to Review |
+|---|---|---|
+| **1. The Problem Chosen** | Acute agricultural disaster compensation backlog in the Deccan plateau (SDRF / Telangana G.O. Ms 17) where 15-day SLAs stretch to 8–14 months due to fragmented record checks. | [Section 1 & Context](#-the-problem-we-chose) |
+| **2. Usefulness to an Officer** | Replaces 4 disjoint legacy systems with an automated 5-Point Multi-Registry Verification Matrix (Dharani, GIS parcel, AWS rainfall, 33% cutoff, NPCI DBT), fraud detection, and 1-click legal proceedings. | [Officer Workflow](#-what-rythu-kavach-does) & `src/components/AiAssistantTab.tsx` |
+| **3. Local Language Design** | 100% authentic administrative Telugu (*పట్టాదారు పాస్‌బుక్, సర్వే నంబర్, ఈ-పంట, వడగండ్ల వాన, శాసనబద్ధమైన పరిశీలన, మంజూరు ప్రొసీడింగ్స్*), state secretariat color scheme, zero AI gimmicks. | [Language Details](#5--native-local-language-experience-తెలుగు) & `src/utils/translations.ts` |
+| **4. Technical Decisions** | Next.js 16 App Router, React 19, TypeScript strict mode, Tailwind CSS v4, zero-dependency SVG Cadastral parcel visualizer, deterministic client-side SDRF rules engine. | [Technical Decisions](#️-main-technical-decisions) & `src/utils/sdrfRules.ts` |
+| **5. Code Quality & Clarity** | Fully typed domain contracts, clean component hierarchy, testable state machine, 8 realistic edge cases, conventional git commit history. | `src/types/claim.ts`, [Test Scenarios](#-test-scenarios--pre-loaded-claims) |
+
+---
+
+## ⏱️ 2-Minute Reviewer Walkthrough
+
+Reviewers can verify the core workflow in under 2 minutes:
+1. **Login**: Open [https://rythukavach.netlify.app](https://rythukavach.netlify.app) and click **"తహసీల్దార్ లాగిన్ (MRO Demo)"** → **"లాగిన్ చేయండి"**.
+2. **Test Case 1 (Clean Sanction)**: Click claim `RK-2026-0101` (Mutyala Ramulu) → Inspect 5-Point Matrix & GIS parcel → Click **"Approve & Sanction Relief"** → Confirm → Generates a printable **Government Sanction Order Proceeding** with QR code.
+3. **Test Case 2 (Extent Inflation)**: Click claim `RK-2026-0102` (Kongara Venkatesh) → See Red Alert (Claimed 4.80 acres on a 2.10-acre Dharani title) → Click **"Return for Rectification"**.
+4. **Test Case 3 (Out-of-Plot Geotag)**: Click claim `RK-2026-0103` (Bollam Laxmamma) → Click **"Cadastral Map"** tab → Notice GPS camera fix plotted **680 meters outside** the survey polygon → Click **"Reject Application"**.
 
 ---
 
